@@ -1,0 +1,14 @@
+type Query {
+  accountTypes: [String]
+}
+
+type Mutation {
+  createAccount(name: String, label: String, accountTypeName: String): ID
+  updateAccount(id: ID, name: String, label: String, accountTypeName: String): ID
+  deleteAccount(id: ID): Boolean
+  createAccountEntry(name: String, label: String, amount: BigDecimal, accountId: ID): ID
+  updateAccountEntry(id: ID, name: String, label: String, amount: BigDecimal, accountID: ID): ID
+  deleteAccountEntry(id: ID): Boolean
+}
+
+scalar BigDecimal
