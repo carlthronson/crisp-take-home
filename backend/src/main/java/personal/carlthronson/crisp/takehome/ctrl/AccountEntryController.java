@@ -3,7 +3,6 @@ package personal.carlthronson.crisp.takehome.ctrl;
 import java.util.List;
 
 import org.springframework.graphql.data.method.annotation.Argument;
-import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +18,6 @@ import personal.carlthronson.crisp.takehome.svc.AccountEntryService;
 @EnableWebMvc
 @Transactional
 public class AccountEntryController extends BaseController<AccountEntryService, AccountEntryEntity, AccountEntryResponse> {
-
-  @MutationMapping(name = "deleteEntry")
-  public Boolean deleteEntry(@Argument(name = "id") Long id) {
-    return delete(id);
-  }
 
   @RequestMapping(path = "/entry/{id}", method = RequestMethod.DELETE)
   public Boolean delete(@PathVariable(name = "id") Long id) {

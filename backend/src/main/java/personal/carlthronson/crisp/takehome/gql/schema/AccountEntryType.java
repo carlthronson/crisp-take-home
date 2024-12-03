@@ -1,11 +1,19 @@
-package personal.carlthronson.crisp.takehome.response;
+package personal.carlthronson.crisp.takehome.gql.schema;
 
 import java.math.BigDecimal;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class AccountEntryResponse extends BaseResponse {
+public class AccountEntryType {
+
+  @Getter
+  @Setter
+  private Long id;
+
+  @Getter
+  @Setter
+  private String name;
 
   @Getter
   @Setter

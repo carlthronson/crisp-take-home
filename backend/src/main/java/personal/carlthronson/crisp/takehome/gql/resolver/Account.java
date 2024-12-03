@@ -1,14 +1,19 @@
-package personal.carlthronson.crisp.takehome.gql;
+package personal.carlthronson.crisp.takehome.gql.resolver;
+
+import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import personal.carlthronson.crisp.takehome.entity.AccountEntity;
 import personal.carlthronson.crisp.takehome.entity.AccountTypeEntity;
+import personal.carlthronson.crisp.takehome.gql.schema.AccountType;
 import personal.carlthronson.crisp.takehome.repo.AccountRepository;
 import personal.carlthronson.crisp.takehome.repo.AccountTypeRepository;
 
@@ -17,6 +22,8 @@ import personal.carlthronson.crisp.takehome.repo.AccountTypeRepository;
 @Transactional
 public class Account {
 
+  Logger logger = Logger.getLogger(getClass().getName());
+
   @Autowired
   private AccountRepository accountRepository;
 
@@ -24,10 +31,9 @@ public class Account {
   private AccountTypeRepository accountTypeRepository;
 
   @MutationMapping(name = "createAccount")
-  public Long createAccount(
-      @Argument(name = "name") String name,
-      @Argument(name = "label") String label,
+  public AccountType createAccount(@Argument(name = "name") String name, @Argument(name = "label") String label,
       @Argument(name = "accountTypeName") String accountTypeName) {
+    logger.info("createAccount");
     AccountTypeEntity accountType = accountTypeRepository.findByName(accountTypeName);
     if (accountType == null) {
       throw new IllegalArgumentException(String.format("Account type %s is not found", accountTypeName));
@@ -36,16 +42,14 @@ public class Account {
     accountEntity.setName(name);
     accountEntity.setLabel(label);
     accountEntity.setAccountType(accountType);
-    return accountRepository.save(accountEntity).getId();
+    accountEntity = this.accountRepository.save(accountEntity);
+    return createAccountResponse(accountEntity);
   }
 
   @MutationMapping(name = "updateAccount")
-  public Long updateAccount(
-      @Argument(name = "id") Long id,
-      @Argument(name = "name") String name,
-      @Argument(name = "label") String label,
-      @Argument(name = "accountTypeName") String accountTypeName) {
-    
+  public AccountType updateAccount(@Argument(name = "id") Long id, @Argument(name = "name") String name,
+      @Argument(name = "label") String label, @Argument(name = "accountTypeName") String accountTypeName) {
+
     AccountEntity accountEntity = accountRepository.getById(id);
     if (accountEntity == null) {
       throw new IllegalArgumentException(String.format("Account %d is not found", id));
@@ -63,12 +67,31 @@ public class Account {
       }
       accountEntity.setAccountType(accountType);
     }
-    return accountRepository.save(accountEntity).getId();
+    accountEntity = accountRepository.save(accountEntity);
+    return createAccountResponse(accountEntity);
   }
 
-//  @MutationMapping(name = "deleteAccount")
-//  public Boolean deleteAccount(@Argument(name = "id") Long id) {
-//    this.accountRepository.deleteById(id);
-//    return true;
-//  }
+  @QueryMapping(name = "accounts")
+  public List<AccountType> accounts() {
+    return this.accountRepository.findAll().stream().map(accountEntity -> {
+      return createAccountResponse(accountEntity);
+    }).toList();
+  }
+
+  @MutationMapping(name = "deleteAccount")
+  public AccountType deleteAccount(@Argument(name = "id") Long id) {
+    AccountEntity accountEntity = this.accountRepository.getById(id);
+    this.accountRepository.deleteById(id);
+    return createAccountResponse(accountEntity);
+  }
+
+  private AccountType createAccountResponse(AccountEntity accountEntity) {
+    AccountType response = new AccountType();
+    response.setId(accountEntity.getId());
+    response.setName(accountEntity.getName());
+    response.setLabel(accountEntity.getLabel());
+    response.setAccountTypeName(accountEntity.getAccountType().getName());
+    return response;
+  }
+
 }

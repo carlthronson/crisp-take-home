@@ -3,8 +3,6 @@ package personal.carlthronson.crisp.takehome.ctrl;
 import java.util.List;
 
 import org.springframework.graphql.data.method.annotation.Argument;
-import org.springframework.graphql.data.method.annotation.MutationMapping;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +18,6 @@ import personal.carlthronson.crisp.takehome.svc.AccountService;
 @EnableWebMvc
 @Transactional
 public class AccountController extends BaseController<AccountService, AccountEntity, AccountResponse> {
-
-  @MutationMapping(name = "deleteAccount")
-  public Boolean deleteAccount(@Argument(name = "id") Long id) {
-    return delete(id);
-  }
 
   @RequestMapping(path = "/account/{id}", method = RequestMethod.DELETE)
   public Boolean delete(@PathVariable(name = "id") Long id) {
@@ -66,7 +59,6 @@ public class AccountController extends BaseController<AccountService, AccountEnt
     return super.findAllByLabel(label);
   }
 
-  @QueryMapping(name = "findAllAccounts")
   @RequestMapping(path = "/account/findall", method = RequestMethod.GET)
   public List<AccountResponse> findAll(@Argument(name = "limit") Integer limit) {
     return super.findAll(limit);

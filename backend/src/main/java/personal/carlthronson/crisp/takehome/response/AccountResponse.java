@@ -7,5 +7,5 @@ public class AccountResponse extends BaseResponse {
 
   @Getter
   @Setter
-  private AccountTypeResponse accountType;
+  private String accountTypeName;
 }

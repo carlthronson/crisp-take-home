@@ -1,14 +1,31 @@
 type Query {
   accountTypes: [String]
+  accounts: [Account]
+  entries: [AccountEntry]
 }
 
 type Mutation {
-  createAccount(name: String, label: String, accountTypeName: String): ID
-  updateAccount(id: ID, name: String, label: String, accountTypeName: String): ID
-  deleteAccount(id: ID): Boolean
-  createAccountEntry(name: String, label: String, amount: BigDecimal, accountId: ID): ID
-  updateAccountEntry(id: ID, name: String, label: String, amount: BigDecimal, accountID: ID): ID
-  deleteAccountEntry(id: ID): Boolean
+  createAccount(name: String, label: String, accountTypeName: String): Account
+  updateAccount(id: ID, name: String, label: String, accountTypeName: String): Account
+  deleteAccount(id: ID): Account
+  createEntry(name: String, category: String, amount: BigDecimal, account: String): AccountEntry
+  updateEntry(id: ID, name: String, category: String, amount: BigDecimal, account: String): AccountEntry
+  deleteEntry(id: ID): AccountEntry
 }
 
 scalar BigDecimal
+
+type Account {
+  id: ID
+  name: String
+  label: String
+  accountTypeName: String
+}
+
+type AccountEntry {
+  id: ID
+  name: String
+  amount: BigDecimal
+  account: String
+  category: String
+}
