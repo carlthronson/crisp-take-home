@@ -9,7 +9,7 @@ public class AccountEntryResponse extends BaseResponse {
 
   @Getter
   @Setter
-  private String account;
+  private AccountResponse account;
 
   @Getter
   @Setter
