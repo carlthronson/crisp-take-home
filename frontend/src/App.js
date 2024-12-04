@@ -8,12 +8,13 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navigation />
+        <Accounts></Accounts>
+        {/* <Navigation />
         <Switch>
           <Route path="/accounts" component={Accounts} />
           <Route path="/entries" component={AccountEntries} />
           <Route path="/" exact component={() => <h1>Welcome to Financial App</h1>} />
-        </Switch>
+        </Switch> */}
       </div>
     </Router>
   );
