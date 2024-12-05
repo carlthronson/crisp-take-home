@@ -17,12 +17,11 @@ import lombok.Setter;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class AccountEntity extends BaseEntity {
 
-  // Every entity needs a name
   @Getter
   @Setter
   String name;
 
-  // Every entity needs a label
+  // Human readable account ID consisting of numbers and dashes
   @Getter
   @Setter
   private String label;

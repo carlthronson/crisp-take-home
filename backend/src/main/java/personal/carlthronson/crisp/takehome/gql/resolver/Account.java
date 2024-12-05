@@ -1,6 +1,7 @@
 package personal.carlthronson.crisp.takehome.gql.resolver;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,13 @@ public class Account {
   private AccountTypeRepository accountTypeRepository;
 
   @MutationMapping(name = "createAccount")
-  public AccountType createAccount(@Argument(name = "name") String name, @Argument(name = "label") String label,
+  public AccountType createAccount(
+      @Argument(name = "name") String name,
+      @Argument(name = "label") String label,
       @Argument(name = "accountTypeName") String accountTypeName) {
+
     logger.info("createAccount");
-    AccountTypeEntity accountType = accountTypeRepository.findByName(accountTypeName);
+    AccountTypeEntity accountType = accountTypeRepository.findByType(accountTypeName);
     if (accountType == null) {
       throw new IllegalArgumentException(String.format("Account type %s is not found", accountTypeName));
     }
@@ -47,13 +51,18 @@ public class Account {
   }
 
   @MutationMapping(name = "updateAccount")
-  public AccountType updateAccount(@Argument(name = "id") Long id, @Argument(name = "name") String name,
-      @Argument(name = "label") String label, @Argument(name = "accountTypeName") String accountTypeName) {
+  public AccountType updateAccount(
+      @Argument(name = "id") Long id,
+      @Argument(name = "name") String name,
+      @Argument(name = "label") String label,
+      @Argument(name = "accountTypeName") String accountTypeName) {
 
-    AccountEntity accountEntity = accountRepository.getById(id);
-    if (accountEntity == null) {
+    logger.info("updateAccount");
+    Optional<AccountEntity> accountEntityOptional = accountRepository.findById(id);
+    if (accountEntityOptional.isEmpty()) {
       throw new IllegalArgumentException(String.format("Account %d is not found", id));
     }
+    AccountEntity accountEntity = accountEntityOptional.get();
     if (name != null) {
       accountEntity.setName(name);
     }
@@ -61,7 +70,7 @@ public class Account {
       accountEntity.setLabel(label);
     }
     if (accountTypeName != null) {
-      AccountTypeEntity accountType = accountTypeRepository.findByName(accountTypeName);
+      AccountTypeEntity accountType = accountTypeRepository.findByType(accountTypeName);
       if (accountType == null) {
         throw new IllegalArgumentException(String.format("Account type %s is not found", accountTypeName));
       }
@@ -80,7 +89,11 @@ public class Account {
 
   @MutationMapping(name = "deleteAccount")
   public AccountType deleteAccount(@Argument(name = "id") Long id) {
-    AccountEntity accountEntity = this.accountRepository.getById(id);
+    Optional<AccountEntity> accountEntityOptional = accountRepository.findById(id);
+    if (accountEntityOptional.isEmpty()) {
+      throw new IllegalArgumentException(String.format("Account %d is not found", id));
+    }
+    AccountEntity accountEntity = accountEntityOptional.get();
     this.accountRepository.deleteById(id);
     return createAccountResponse(accountEntity);
   }
@@ -90,7 +103,7 @@ public class Account {
     response.setId(accountEntity.getId());
     response.setName(accountEntity.getName());
     response.setLabel(accountEntity.getLabel());
-    response.setAccountTypeName(accountEntity.getAccountType().getName());
+    response.setAccountTypeName(accountEntity.getAccountType().getType());
     return response;
   }
 

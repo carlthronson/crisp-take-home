@@ -9,4 +9,6 @@ import personal.carlthronson.crisp.takehome.entity.AccountEntity;
 @Transactional
 public interface AccountRepository extends BaseRepository<AccountEntity> {
 
+  AccountEntity findByName(String accountName);
+
 }

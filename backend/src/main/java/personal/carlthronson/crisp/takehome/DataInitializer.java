@@ -17,16 +17,16 @@ public class DataInitializer implements CommandLineRunner {
   public void run(String... args) throws Exception {
     if (accountTypeRepository.count() == 0) {
       AccountTypeEntity accountsPayable = new AccountTypeEntity();
-      accountsPayable.setName("Accounts Payable");
+      accountsPayable.setType("Accounts Payable");
       accountTypeRepository.save(accountsPayable);
       AccountTypeEntity accountsReceivable = new AccountTypeEntity();
-      accountsReceivable.setName("Accounts Receivable");
+      accountsReceivable.setType("Accounts Receivable");
       accountTypeRepository.save(accountsReceivable);
       AccountTypeEntity fixedAssets = new AccountTypeEntity();
-      fixedAssets.setName("Fixed Assets");
+      fixedAssets.setType("Fixed Assets");
       accountTypeRepository.save(fixedAssets);
       AccountTypeEntity cash = new AccountTypeEntity();
-      cash.setName("Cash");
+      cash.setType("Cash");
       accountTypeRepository.save(cash);
     }
   }

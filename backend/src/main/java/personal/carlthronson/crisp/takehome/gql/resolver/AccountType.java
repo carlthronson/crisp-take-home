@@ -20,8 +20,8 @@ public class AccountType {
 
   @QueryMapping(name = "accountTypes")
   public List<String> accountTypes() {
-    return this.accountTypeRepository.findAll().stream().map(accountEntity -> {
-      return accountEntity.getName();
+    return this.accountTypeRepository.findAll().stream().map(accountTypeEntity -> {
+      return accountTypeEntity.getType();
     }).toList();
   }
 

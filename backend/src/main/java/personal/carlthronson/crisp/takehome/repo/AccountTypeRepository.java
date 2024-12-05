@@ -9,4 +9,6 @@ import personal.carlthronson.crisp.takehome.entity.AccountTypeEntity;
 @Transactional
 public interface AccountTypeRepository extends BaseRepository<AccountTypeEntity> {
 
+  AccountTypeEntity findByType(String accountTypeName);
+
 }

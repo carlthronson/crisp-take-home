@@ -20,15 +20,15 @@ public class AccountEntryEntity extends BaseEntity {
 
   @Getter
   @Setter
-  private String label;
+  private BigDecimal amount;
 
   @Getter
   @Setter
-  @ManyToOne(optional = true)
+  private String category;
+
+  @Getter
+  @Setter
+  @ManyToOne(optional = false)
   @JoinColumn(name = "account_id")
   private AccountEntity account;
-
-  @Getter
-  @Setter
-  private BigDecimal amount;
 }

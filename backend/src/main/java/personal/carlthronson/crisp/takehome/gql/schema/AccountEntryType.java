@@ -17,7 +17,7 @@ public class AccountEntryType {
 
   @Getter
   @Setter
-  private String account;
+  private BigDecimal amount;
 
   @Getter
   @Setter
@@ -25,5 +25,5 @@ public class AccountEntryType {
 
   @Getter
   @Setter
-  private BigDecimal amount;
+  private String account;
 }

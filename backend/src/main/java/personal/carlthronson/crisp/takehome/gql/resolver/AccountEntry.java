@@ -2,6 +2,7 @@ package personal.carlthronson.crisp.takehome.gql.resolver;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,12 @@ public class AccountEntry {
   private AccountRepository accountRepository;
 
   @MutationMapping(name = "createEntry")
-  public AccountEntryType createEntry(@Argument(name = "name") String name,
-      @Argument(name = "category") String category, @Argument(name = "amount") BigDecimal amount,
+  public AccountEntryType createEntry(
+      @Argument(name = "name") String name,
+      @Argument(name = "category") String category,
+      @Argument(name = "amount") BigDecimal amount,
       @Argument(name = "account") String accountName) {
+
     logger.info(String.format("createEntry name: %s category: %s amount: %s account: %s",
         name, category, amount.toString(), accountName));
     AccountEntity account = accountRepository.findByName(accountName);
@@ -44,7 +48,7 @@ public class AccountEntry {
     logger.info("account: " + account.toString());
     AccountEntryEntity accountEntryEntity = new AccountEntryEntity();
     accountEntryEntity.setName(name);
-    accountEntryEntity.setLabel(category);
+    accountEntryEntity.setCategory(category);
     accountEntryEntity.setAmount(amount);
     accountEntryEntity.setAccount(account);
     logger.info("entity: " + accountEntryEntity.toString());
@@ -53,19 +57,25 @@ public class AccountEntry {
   }
 
   @MutationMapping(name = "updateEntry")
-  public AccountEntryType updateEntry(@Argument(name = "id") Long id, @Argument(name = "name") String name,
-      @Argument(name = "category") String category, @Argument(name = "amount") BigDecimal amount,
+  public AccountEntryType updateEntry(
+      @Argument(name = "id") Long id,
+      @Argument(name = "name") String name,
+      @Argument(name = "category") String category,
+      @Argument(name = "amount") BigDecimal amount,
       @Argument(name = "account") String accountName) {
 
-    AccountEntryEntity accountEntryEntity = accountEntryRepository.getById(id);
-    if (accountEntryEntity == null) {
+    logger.info(String.format("updateEntry name: %s category: %s amount: %s account: %s",
+        name, category, amount.toString(), accountName));
+    Optional<AccountEntryEntity> accountEntryEntityOptional = accountEntryRepository.findById(id);
+    if (accountEntryEntityOptional.isEmpty()) {
       throw new IllegalArgumentException(String.format("Account entry %d is not found", id));
     }
+    AccountEntryEntity accountEntryEntity = accountEntryEntityOptional.get();
     if (name != null) {
       accountEntryEntity.setName(name);
     }
     if (category != null) {
-      accountEntryEntity.setLabel(category);
+      accountEntryEntity.setCategory(category);
     }
     if (amount != null) {
       accountEntryEntity.setAmount(amount);
@@ -90,7 +100,11 @@ public class AccountEntry {
 
   @MutationMapping(name = "deleteEntry")
   public AccountEntryType deleteEntry(@Argument(name = "id") Long id) {
-    AccountEntryEntity accountEntryEntity = this.accountEntryRepository.getById(id);
+    Optional<AccountEntryEntity> accountEntryEntityOptional = accountEntryRepository.findById(id);
+    if (accountEntryEntityOptional.isEmpty()) {
+      throw new IllegalArgumentException(String.format("Account entry %d is not found", id));
+    }
+    AccountEntryEntity accountEntryEntity = accountEntryEntityOptional.get();
     this.accountEntryRepository.deleteById(id);
     return this.createAccountEntryResponse(accountEntryEntity);
   }
@@ -100,7 +114,7 @@ public class AccountEntry {
     response.setId(accountEntryEntity.getId());
     response.setName(accountEntryEntity.getName());
     response.setAmount(accountEntryEntity.getAmount());
-    response.setCategory(accountEntryEntity.getLabel());
+    response.setCategory(accountEntryEntity.getCategory());
     response.setAccount(accountEntryEntity.getAccount().getName());
     return response;
   }
