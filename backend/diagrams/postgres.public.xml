@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="postgres" schema="public" type="PostgreSQL - 14.13 (Homebrew)">
+   <tables>
+      <table name="account" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="int8">
+            <child column="account_id" foreignKey="fkhcchqmvq6vqbe3ecg303cr68u" implied="false" onDeleteCascade="false" table="account_entry"/>
+         </column>
+         <column autoUpdated="false" digits="6" id="1" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="2" name="deleted_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="3" name="updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="4" name="version" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="5" name="label" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="account_type_id" nullable="false" remarks="" size="19" type="int8">
+            <parent column="id" foreignKey="fkgw84mgpacw9htdxcs2j1p7u6j" implied="false" onDeleteCascade="false" table="account_type"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="account_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="account_entry" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="6" id="1" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="2" name="deleted_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="3" name="updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="4" name="version" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="2" id="5" name="amount" nullable="true" remarks="" size="38" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="category" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="account_id" nullable="false" remarks="" size="19" type="int8">
+            <parent column="id" foreignKey="fkhcchqmvq6vqbe3ecg303cr68u" implied="false" onDeleteCascade="false" table="account"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="account_entry_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="account_type" numRows="4" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="int8">
+            <child column="account_type_id" foreignKey="fkgw84mgpacw9htdxcs2j1p7u6j" implied="false" onDeleteCascade="false" table="account"/>
+         </column>
+         <column autoUpdated="false" digits="6" id="1" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="2" name="deleted_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="3" name="updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="4" name="version" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="5" name="type" nullable="true" remarks="" size="255" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="account_type_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+   </tables>
+</database>
