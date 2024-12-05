@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:8082/graphql',
+  uri: 'https://crisp-take-home.onrender.com/graphql',
 });
 
 const client = new ApolloClient({
