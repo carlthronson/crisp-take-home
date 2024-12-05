@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
-import { useQuery, useMutation, gql } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 
 const CREATE_ENTRY = gql`
   mutation CreateEntry($name: String!, $amount: BigDecimal!, $category: String!, $account: String!) {
@@ -17,7 +17,6 @@ const CREATE_ENTRY = gql`
 
 const CreateEntryForm = ({account}) => {
     const [createEntry] = useMutation(CREATE_ENTRY, {
-        // refetchQueries: [{ query: GET_ENTRIES }],
       });
     
     const [formData, setFormData] = useState({
@@ -34,22 +33,6 @@ const CreateEntryForm = ({account}) => {
   const handleSubmit = async (e) => {
     console.log(JSON.stringify(formData));
     await createEntry({ variables: formData });
-    // setNewEntry({ name: '', account: '', amount: 0, category: '' });
-    // e.preventDefault();
-    // try {
-    //   // Send data to your API endpoint
-    //   const response = await fetch('/api/create-object', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(formData),
-    //   });
-    //   if (response.ok) {
-    //     console.log('Object created successfully');
-    //     // Close popup or show success message
-    //   }
-    // } catch (error) {
-    //   console.error('Error creating object:', error);
-    // }
   };
 
   return (

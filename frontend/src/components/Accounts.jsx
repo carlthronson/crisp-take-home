@@ -1,11 +1,10 @@
-// `app/task-board/page.js` is the UI for the `/task-board/` URL
 'use client'
 import styled from 'styled-components';
 import Overview from './Overview';
 import { useQuery, gql } from '@apollo/client';
 
 const GET_DATA = gql`
-  query GetDATA {
+  query GetData {
     accountTypes
     accounts {
       id
@@ -36,7 +35,6 @@ export default function Accounts() {
   return <div>
     <Title>{data.entries.length} account entries...</Title>
     <div>
-      {/* Coming soon... */}
       <Overview accountTypes={data.accountTypes} accounts={data.accounts} entries={data.entries}></Overview>
     </div>
   </div>

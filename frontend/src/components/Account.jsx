@@ -1,9 +1,5 @@
-// import { useCollapse } from 'react-collapsed';
 import styled from 'styled-components';
-import { Avatar, Image } from 'antd';
-import React, { useState, useEffect } from 'react';
-// import Link from 'next/link';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import Entry from './Entry';
 import UpdateAccountForm from './UpdateAccountForm';
 import DeleteAccountForm from './DeleteAccountButton';
@@ -25,39 +21,20 @@ const AccountArea = styled.div`
     flex-direction: column;
 `   ;
 
-const AccountListArea = styled.div`
-    padding: 3px;
-  transistion: background-color 0.2s ease;
-  background-color: #f4f5f7;
-    flex-grow: 1;
-    min-height: 100px;
-`   ;
-
-export default function Account({ account, entries, index, total }) {
-//   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse()
+export default function Account({ account, entries }) {
 
   return (
     <AccountArea>
-      {/* <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        gap: 8
-      }}> */}
       <span href='' style={{  }}>Account Name: {account.name}</span>
       <span href='' style={{  }}>Account ID: {account.label}</span>
-      {/* </div> */}
       <div>
       <UpdateAccountForm account={account}></UpdateAccountForm>
       <DeleteAccountForm account={account}></DeleteAccountForm>
       <CreateEntryForm account={account}></CreateEntryForm>
       </div>
-      {/* <span href='' style={{  }}>{index + 1}/{total} ({entries.filter(x => x.account === account.name).length}) {account.name}</span> */}
-      {/* <Link href='' style={{  }} {...getToggleProps()}>{isExpanded ? 'Collapse' : 'Expand'}</Link> */}
-      {/* <section {...getCollapseProps()}> */}
         {entries.filter(x => x.account === account.name).map((item, index) => (
           <Entry key={index} entry={item} account={account} index={index} />
         ))}
-      {/* </section> */}
     </AccountArea>
   );
 }
