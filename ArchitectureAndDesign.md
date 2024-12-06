@@ -44,3 +44,16 @@
 - The application can be configured to work with any RDBMS that supports JPA
 - The database schema is automatically generated the first time the app is started
 - There is a data initializer in the backend code that automatically checks for account types and creates them if necessary when the application starts
+
+# Extending the solution
+
+## Security
+- The backend can be extended by implementing Spring Boot security using a security filter chain.  A filter chain provides key features for managing security, such as authentication, authorization and session management, etc...
+- User authentication can be preserved between requests using various methods including JWT tokens, session ids, cookies, request headers, etc...
+
+## Scalability, Optimization
+- The application can be deployed to a cloud platform that supports flexible scaling.
+- The database schema can be updated for performance
+- The user interface can be modified to work with large data sets
+- Paging parameters can be added to GraphQL queries
+
