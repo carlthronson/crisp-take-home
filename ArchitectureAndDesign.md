@@ -1,46 +1,46 @@
+# Layers
+- The frontend is a standard framework-free react application.
+- The backend is a Spring Boot Java application using GraphQL for the client API.
+- The database is a postgresql database; but, the backend can be configured to use any RDBMS that supports JPA.
 
+# Frontend
 
-1. Layers
-    1. frontend is a react application without a framework like next.js.  Just Node.
-    2. backend is a spring boot java application using graphql for the client api.
-    3. the database is a postgresql database.
+## Main page
 
-2. frontend react application
-    1. There is one main page that displays all the data.
-        1. Layout of the user interface
-            1. There is one column for each account type (there are only 4 account types)
-            2. Within each column there is one box for each account.
-            3. Within each account box there is a list of account entries.
-            4. This UI works okay for a small amount of data which is enough to show that the system works.
-            5. For a real life system there would need to be a different layout
-    2. Buttons for actions
-        1. Create account (automatically places the account into the right account type)
-        2. Update account allows you to modify the name and label
-        3. Delete account allows you to confirm delete or cancel
-        4. Create entry (automatically places the entry into the right account)
-        5. Update entry allows you to modify the name, amount and category
-        6. Delete entry allows you to confirm delete or cancel
-    3. Data access
-        1. Data access uses Apollo GraphQL queries and mutations
+### Layout
+- There is one column for each account type (there are only 4 account types)
+- Within each column there is one box for each account.
+- Within each account box there is a list of account entries.
+- This UI works okay for a small amount of data which is enough to show that the system works.
+- For a real life system there would need to be a different layout
 
-3. backend spring boot java application
-    1. Almost all of the code is essentially declarative
-        1. Declaring the entities and their fields
-        2. Declaring the repository interfaces
-        3. Declaring the GraphQL schema
-        4. Declaring the application configuration
-    2. The GQL resolvers have some small amount of logic
-        1. When creating an account, first obtain the account type
-        2. When creating an entry, first obtain the account
-        3. Each GQL mutation follows this general pattern
-            1. create or obtain the identified entity
-            2. set or update the appropriate fields
-            3. save or delete the entity
-    3. Performing persistent entity operations
-        1. All data persistence is done using JPA repository interfaces
+### Buttons
+- Create account (automatically places the account into the right account type)
+- Update account allows you to modify the name and label
+- Delete account allows you to confirm delete or cancel
+- Create entry (automatically places the entry into the right account)
+- Update entry allows you to modify the name, amount and category
+- Delete entry allows you to confirm delete or cancel
 
-4. database
-    1. The database schema is automatically generated the first time the app is started
-    2. If there are no account type objects, they are created automatically
+### Data access
+- Data access is done using the Apollo GraphQL library
 
+# Backend
 
+## Data access
+- All data access is done using JPA entities and repositories
+- For each entity, there is corresponding controller with a findall endpoint
+
+## GraphQL
+- The schema has query fields to get data for each entity type
+- The schema also has mutation fields to create, update and delete each entity type
+- There is a resolver for each type of entity with all the corresponding mutations
+- Each resolver using the entities and repositories to access data
+
+## Configuration
+- The application configuration file (application.properties) contains all the configuration
+
+# Database
+- The application can be configured to work with any RDBMS that supports JPA
+- The database schema is automatically generated the first time the app is started
+- There is a data initializer in the backend code that automatically checks for account types and creates them if necessary when the application starts
