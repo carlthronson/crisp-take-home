@@ -4,6 +4,9 @@ A financial accounting application that allows users to track, maintain, and rev
 
 # Questions and assumptions
 
+Question.  What should happen if a user tries to create multiple accounts with the same name or similar anomolies?
+Assumption.  It is expected that for this exercise, the users will only create accounts and entries with unique names.
+
 Question.  What does it mean to track an account or entry?
 Assumption.  As far as I know, accounts and entries do not progress through a set of steps or stages and do not have a life cycle.  So, tracking is not a requirement.
 
