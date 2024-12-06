@@ -21,7 +21,9 @@ public class AccountEntity extends BaseEntity {
   @Setter
   String name;
 
-  // Human readable account ID consisting of numbers and dashes
+  /**
+   * Human readable account ID consisting of numbers and dashes
+   */
   @Getter
   @Setter
   private String label;
