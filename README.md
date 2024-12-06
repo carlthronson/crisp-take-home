@@ -82,35 +82,26 @@ FRONTEND: Run this command from the folder named frontend
 
 # Deliverables
 - [x] Running code
-- [ ] Passing test suite
-- [ ] Documentation of your code for anything that isn’t self-documenting or clear to a fellow developer
+- [x] Passing test suite
+- [x] Documentation of your code for anything that isn’t self-documenting or clear to a fellow developer
 - [x] Documentation of any assumptions that you made while interpreting the requirements
-- [ ] Documentation of the architecture and design of your solution
-- [ ] Explanation of how your solution could be extended, optimized, or updated to account for other
+- [x] Documentation of the architecture and design of your solution
+- [x] Explanation of how your solution could be extended, optimized, or updated to account for other
 non-functionals that were not required, e.g. security, API versioning, scalability, reliability, etc.
 
 # User interview highlights
 
 ## Data analysis requirements
-- [x] It must be possible to aggregate data by categories and time periods (month, quarter and year)
-- [ ] An account entry can have some characteristics that makes them more random or less random
+- [x] It must be possible to aggregate data by categories and time periods (month, quarter and year).  Every database table has a create_at column and a updated_at column that can be used to write queries to satisfy this requirement.  Further, the account_entry table has a category column that can be used to aggregate account entries. 
+- [ ] An account entry can have some characteristics that makes them more random or less random.  It's not clear if this requirement is met or not.
 
 ## Application sizing and other things that can impact the architecture decisions
+It would be a requirement that none of these facts should break the application.
 - [x] There can be thousands of account entries in one year
 - [x] The bank has more than one client machine
 - [x] The client machines are cheap and have only 4 GB of RAM and are slow and the IT department gets a lot of tickets about them being slow
 - [x] The client machines use Chrome
 
 ## General
-- The bank has an IT department
-- Every account entry can have supporting documentation
-
-# What are we looking for
-- [x] Application runs and works
-- [x] Consistent UI and UX design
-- [x] Well-structured, readable, and maintainable code
-- [ ] Unit tests and (optionally) snapshot tests
-- [x] Fulfillment of MVP requirements
-- [x] Fulfillment of at least some requirements related to the user interviews
-- [ ] Quality of the documentation
-
+- [ ] The bank has an IT department (this is helpful to know in that the IT department has a system to recieve tickets so they could possibly use that system for the server for the frontend, backend and database.)
+- [ ] Every account entry can have supporting documentation (I'm not sure what that documentation is.)
