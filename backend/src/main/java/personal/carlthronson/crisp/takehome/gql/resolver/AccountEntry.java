@@ -116,6 +116,7 @@ public class AccountEntry {
     response.setAmount(accountEntryEntity.getAmount());
     response.setCategory(accountEntryEntity.getCategory());
     response.setAccount(accountEntryEntity.getAccount().getName());
+    response.setDate(accountEntryEntity.getUpdatedAt().toString());
     return response;
   }
 }

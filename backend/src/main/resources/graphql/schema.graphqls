@@ -28,4 +28,5 @@ type AccountEntry {
   amount: BigDecimal
   account: String
   category: String
+  date: String
 }
