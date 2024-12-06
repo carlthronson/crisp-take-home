@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <database name="postgres" schema="public" type="PostgreSQL - 14.13 (Homebrew)">
    <tables>
-      <table name="account" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="account" numRows="2" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="int8">
             <child column="account_id" foreignKey="fkhcchqmvq6vqbe3ecg303cr68u" implied="false" onDeleteCascade="false" table="account_entry"/>
          </column>
