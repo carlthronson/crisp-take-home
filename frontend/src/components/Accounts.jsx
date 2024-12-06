@@ -18,6 +18,7 @@ const GET_DATA = gql`
       amount
       account
       category
+      date
     } 
   }
 `;

@@ -26,4 +26,8 @@ public class AccountEntryType {
   @Getter
   @Setter
   private String account;
+
+  @Getter
+  @Setter
+  private String date;
 }

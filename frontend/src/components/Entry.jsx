@@ -33,6 +33,7 @@ export default function Entry({ entry, account, statuses, index }) {
         <Row>Name: {entry.name}</Row>
         <Row>Amount: {entry.amount}</Row>
         <Row>Category: {entry.category}</Row>
+        <Row>Date: {entry.date}</Row>
         <div>
       <UpdateEntryForm entry={entry}></UpdateEntryForm>
       <DeleteEntryForm entry={entry}></DeleteEntryForm>
