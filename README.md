@@ -36,11 +36,11 @@ Assumption.  An account entry is an item in an account with a name, an amount an
 
 Step 1. Open ./src/main/resources/application.properties
 
-Step 2. Modify line 28.  This is the original line.  Replace carl with your username.
+Step 2. Modify line 27.  This is the original line.  Replace carl with your username.
 
 		spring.datasource.username=carl
 
-Setp 3. Modify line 30.  This is the original line.  		Replace the empty password with your password.  Or leave it blank if you have an empty password.
+Setp 3. Modify line 29.  This is the original line.  		Replace the empty password with your password.  Or leave it blank if you have an empty password.
 
 		spring.datasource.password=
 
